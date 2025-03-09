@@ -13,9 +13,11 @@ namespace MyApp.Namespace
     {
         private readonly JwtService _jwtService;
         private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IUserService userService, JwtService jwtService)
+        public AuthController(IAuthService authService, IUserService userService, JwtService jwtService)
         {
+            _authService = authService;
             _userService = userService;
             _jwtService = jwtService;
         }
@@ -32,6 +34,28 @@ namespace MyApp.Namespace
             await _userService.ValidateUserRoleAsync(user);
             var token = _jwtService.GenerateToken(user);
             return Ok(user);
+        }
+        [HttpPost("/api/forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody]string email)
+        {
+            var result = await _authService.ForgotPasswordAsync(email);
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Message);
+        }
+        [HttpPut("/api/reset-password/{dto.Token}")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO dto)
+        {
+            var result = await _authService.ResetPasswordAsync(dto);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result.Message);
         }
     }
 }

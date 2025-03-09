@@ -21,6 +21,8 @@ public static class ServiceRegistrationProvider
             (typeof(IEmailService), typeof(SmtpEmailService)),
             (typeof(ISubscriptionService), typeof(SubscriptionService)),
             (typeof(IResultService), typeof(ResultService)),
+            (typeof(IAuthService), typeof(AuthService)),
+            (typeof(ITokenService), typeof(TokenService)),
         };
 
         foreach (var service in servicesToRegister)

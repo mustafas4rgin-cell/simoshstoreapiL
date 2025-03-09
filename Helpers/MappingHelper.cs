@@ -1,4 +1,5 @@
-﻿using App.Data.Entities;
+﻿using System.Data;
+using App.Data.Entities;
 using SimoshStoreAPI;
 
 namespace SimoshStore;
@@ -15,7 +16,9 @@ public class MappingHelper
             Phone = dto.Phone,
             Email = dto.Email,
             PasswordHash = passwordHash,
-            PasswordSalt = passwordSalt
+            PasswordSalt = passwordSalt,
+            ResetToken = "",
+            ResetTokenExpires = DateTime.UtcNow
         };
     }
     public static BlogCommentEntity MappingBlogCommentEntity(BlogCommentDTO dto)

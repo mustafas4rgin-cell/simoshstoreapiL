@@ -99,7 +99,7 @@ public class UserService : IUserService
         {
             return new ServiceResult(false, validationResult.Errors.First().ErrorMessage);
         }
-        var existingUser = await _dataRepository.GetAll<UserEntity>().FirstOrDefaultAsync(x => x.Email == dto.Email);
+        var existingUser = await _dataRepository.GetAll<UserEntity>().FirstOrDefaultAsync(x => x.Email == dto.Email||x.Phone == dto.Phone);
         if (existingUser != null)
         {
             return new ServiceResult(false, "User already exists");

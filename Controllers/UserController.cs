@@ -15,7 +15,7 @@ namespace MyApp.Namespace
         {
             _userService = userService;
         }
-        [HttpPost("/api/users/create")]
+        [HttpPost("/api/create/user")]
         public async Task<IActionResult> CreateUser([FromBody] RegisterDto dto)
         {
             
@@ -46,7 +46,7 @@ namespace MyApp.Namespace
             }
             return Ok(users);
         }
-        [HttpPut("/api/users/update/{id}")]
+        [HttpPut("/api/update/user{id}")]
         public async Task<IActionResult> UpdateUser(UserDTO user, int id)
         {
             var result = await _userService.UpdateUserAsync(user, id);
@@ -56,7 +56,7 @@ namespace MyApp.Namespace
             }
             return Ok(result.Message);
         }
-        [HttpDelete("/api/users/delete{id}")]
+        [HttpDelete("/api/delete/user/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var result = await _userService.DeleteUserAsync(id);
